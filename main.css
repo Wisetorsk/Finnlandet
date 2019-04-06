@@ -1,0 +1,53 @@
+body {
+    background-color: aliceblue;
+}
+
+.wrapper {
+    display: grid;
+    border: 1px dashed black;
+}
+
+.sidebar {
+    height: 100vh;
+}
+
+.sidebar .list {
+    top: 50px;
+}
+
+.webpage {
+    grid-template-columns: 150px 1fr;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+}
+
+.heading {
+    display: flex;
+}
+
+.mainPage {
+    grid-template-rows: 100px 800px 100px;
+}
+
+.mainContent {
+}
+
+.footer {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.footerBox {
+    border: 1px dashed red;
+    text-align: center;
+}
+
+.twitter {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: flex-end;
+    padding-right: 50px;
+}
