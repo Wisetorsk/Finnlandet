@@ -28,9 +28,11 @@ body {
 }
 
 ul#horizontal-list {
+    position: relative;
 	min-width: 696px;
 	list-style: none;
-	padding-top: 0px;
+    padding-top: 0px;
+    top: -30px;
 	}
 	ul#horizontal-list li {
         display: inline;
@@ -54,6 +56,7 @@ ul#horizontal-list {
 
 .blogContainer img {
     margin: 0px 15px 15px 0px;
+    padding-top: 20px;
 }
 
 .blogElement {
@@ -78,6 +81,12 @@ ul#horizontal-list {
     height: 120px;
 }
 
+.navbarImg{
+    height: 45px;
+    position: relative;
+    top: 15px;
+}
+
 .mainPage {
     /*grid-template-rows: 100px 800px 100px;*/
 }
@@ -96,7 +105,6 @@ ul#horizontal-list {
 }
 
 .footerBox {
-    border: 1px dashed red;
     text-align: center;
 }
 
