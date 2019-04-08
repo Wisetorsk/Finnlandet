@@ -4,7 +4,6 @@ body {
 
 .wrapper {
     display: grid;
-    border: 1px dashed black;
 }
 
 #navbar {
@@ -45,7 +44,7 @@ ul#horizontal-list {
 
 #navbar {
     background-color: rgba(55, 148, 55, 0.86);
-    margin-right: 1vw;
+    margin-left: .6vw;
 }
 
 .blogContainer {
@@ -65,10 +64,17 @@ ul#horizontal-list {
     display: flex;
     justify-content: center;
     height: 120px;
+    background-color: rgb(63,71,209);
+    margin-left: .6vw;
 }
 
 .heading {
     display: flex;
+}
+
+.heading img {
+    width: inherit;
+    height: 120px;
 }
 
 .mainPage {
@@ -79,7 +85,7 @@ ul#horizontal-list {
 }
 
 .footer {
-    height: 75px;
+    height: 50px;
     margin-top: 50px;
     grid-template-columns: 1fr 1fr 1fr;
 }
