@@ -55,8 +55,11 @@ ul#horizontal-list {
 }
 
 .blogContainer img {
-    margin: 0px 15px 15px 0px;
-    padding-top: 20px;
+    margin: 15px 15px 15px 15px;
+    margin-top: 20px;
+    -webkit-box-shadow: 9px 10px 59px -32px rgba(0,0,0,0.92);
+    -moz-box-shadow: 9px 10px 59px -32px rgba(0,0,0,0.92);
+    box-shadow: 9px 10px 59px -32px rgba(0,0,0,0.92);
 }
 
 .blogElement {
@@ -85,6 +88,12 @@ ul#horizontal-list {
     height: 45px;
     position: relative;
     top: 15px;
+
+}
+
+li:hover {
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
 }
 
 .mainPage {
@@ -117,3 +126,4 @@ ul#horizontal-list {
     position: fixed;
     right: 0px;
 }
+

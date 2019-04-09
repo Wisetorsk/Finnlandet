@@ -48,6 +48,8 @@ function insertBlogElement(data) {
     image.src = data.img;
     image.align = data.align;
     element.id = data.id;
+    image.width = data.imgW;
+    image.height = data.imgH;
     element.classList.add('blogElement');
     textBox.classList.add('blogText');
 
