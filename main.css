@@ -8,7 +8,8 @@ body {
 
 #navbar {
     height: 50px;
-    width: 75vw;
+    width: 100vw;
+    z-index: 1;
 }
 
 .sticky {
@@ -49,7 +50,7 @@ ul#horizontal-list {
 }
 
 .right {
-    
+
 }
 
 #navbar {
@@ -136,7 +137,9 @@ li:hover {
     justify-content: right;
     align-items: flex-end;
     padding-right: 50px;
-    position: fixed;
+    position: absolute;
     right: 0px;
+    top: 200px;
+    z-index: 0;
 }
 
