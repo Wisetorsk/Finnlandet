@@ -44,6 +44,12 @@ function insertBlogElement(data) {
     let image = document.createElement("img");
     let textContent = document.createTextNode(data.text);
     let parent = document.getElementById('blogContainer');
+    let hRule = document.createElement("hr");
+
+    let heading = document.createElement("h3");
+    let headerText = document.createTextNode(data.header);
+    heading.appendChild(headerText);
+    heading.classList.add("blogHeader");
 
     image.src = data.img;
     image.align = data.align;
@@ -54,7 +60,9 @@ function insertBlogElement(data) {
     textBox.classList.add('blogText');
 
     textBox.appendChild(textContent);
+    element.appendChild(heading);
     element.appendChild(image);
     element.appendChild(textBox);
+    element.appendChild(hRule);
     parent.appendChild(element);
 }

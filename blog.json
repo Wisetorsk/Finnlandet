@@ -6,7 +6,8 @@
             "img":"resource/300.jpg", 
             "imgW":"300",
             "imgH":"300",
-            "align":"left"
+            "align":"left",
+            "header":"TEST1"
         },
         {
             "id":"2", 
@@ -14,7 +15,8 @@
             "img":"resource/800.jpg", 
             "imgW":"300",
             "imgH":"400",
-            "align":"right"
+            "align":"right",
+            "header":"TEST2"
         }
     ]
 }

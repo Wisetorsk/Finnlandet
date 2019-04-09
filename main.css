@@ -66,6 +66,11 @@ ul#horizontal-list {
     margin-top: 25px;
 }
 
+.blogHeader {
+    text-align: center;
+    text-decoration: underline;
+}
+
 .header {
     display: flex;
     justify-content: center;
