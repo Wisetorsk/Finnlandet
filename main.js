@@ -15,16 +15,14 @@ function init() {
 
     navbar = document.getElementById('navbar');
     sticky = navbar.offsetTop;
-    loadJSON();
-    loadBlogElements(blogData);
+    loadBlogJSON();
 }
 
-function loadJSON() {
+function loadBlogJSON() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         blogData = JSON.parse(this.responseText);
-        console.log(blogData.blog);
         for (element of blogData.blog) {
             insertBlogElement(element);
         }
@@ -34,9 +32,6 @@ xmlhttp.open("GET", "blog.json", true);
 xmlhttp.send();
 }
 
-function loadBlogElements(dataCollection) {
-    console.table(dataCollection);
-} 
 
 function insertBlogElement(data) {
     let element = document.createElement("div");
@@ -45,9 +40,13 @@ function insertBlogElement(data) {
     let textContent = document.createTextNode(data.text);
     let parent = document.getElementById('blogContainer');
     let hRule = document.createElement("hr");
-
     let heading = document.createElement("h3");
     let headerText = document.createTextNode(data.header);
+    let figure = document.createElement("figure");
+    let imgCaptionText = document.createTextNode(data.caption);
+    let caption = document.createElement("figcaption");
+    let offsetVertical = parseInt(data.imgH) + 20;
+    let offsetHorizontal = parseInt(data.imgW);
     heading.appendChild(headerText);
     heading.classList.add("blogHeader");
 
@@ -58,10 +57,24 @@ function insertBlogElement(data) {
     image.height = data.imgH;
     element.classList.add('blogElement');
     textBox.classList.add('blogText');
+    figure.classList.add(data.align);
 
+    caption.style.position = "relative";
+    caption.style.top = offsetVertical + "px";
+    caption.style.fontSize = "12px";
+
+    if(data.align == "left") {
+      caption.style.right = offsetHorizontal + "px";
+    } else {
+      caption.style.left = "50vw";
+    }
+
+    caption.appendChild(imgCaptionText);
+    figure.appendChild(image);
+    figure.appendChild(caption);
     textBox.appendChild(textContent);
     element.appendChild(heading);
-    element.appendChild(image);
+    element.appendChild(figure);
     element.appendChild(textBox);
     element.appendChild(hRule);
     parent.appendChild(element);

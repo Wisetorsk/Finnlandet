@@ -44,6 +44,14 @@ ul#horizontal-list {
     /*grid-template-columns: 150px 1fr;*/
 }
 
+.left {
+
+}
+
+.right {
+    
+}
+
 #navbar {
     background-color: rgba(55, 181, 69, 0.86);
     margin-left: .6vw;
