@@ -25,9 +25,9 @@
                     <div class="table">
                         <ul id="horizontal-list">
                         <li><a href="https://www.breddefantasy.com/"><img class="navbarImg" src="resource/bredde.png"></a></li>
-                        <li><a href="#">FotballTabeller</a></li>
-                        <li><a href="#">SpillerStatistikk</a></li>
-                        <li><a href="#">ITEM 4</a></li>
+                        <li><a href="#" onclick="blogMode()">Blog</a></li>
+                        <li><a href="#" onclick="matchResultMode()">FotballTabeller</a></li>
+                        <li><a href="#" onclick="rosterMode()">SpillerStatistikk</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,11 +35,21 @@
                     
 
                 </div>
+
+                <div id="matchResults" class="hidden">
+                    <table id="resultsTable"></table>
+                </div>
+    
+                <div id="playerRoster" class="hidden">
+    
+                </div>
                 
                 <div id="twitterWindow" class="embed twitter">
-                        <a class="twitter-timeline" data-width="15vw" data-height="700" href="https://twitter.com/FInnlandet?ref_src=twsrc%5Etfw">Tweets by FInnlandet</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <a class="twitter-timeline" data-width="15vw" data-height="75vh" href="https://twitter.com/FInnlandet?ref_src=twsrc%5Etfw">Tweets by FInnlandet</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
             </div>
+
+
             
             <div class="footer wrapper">
                 <div class="left footerBox">

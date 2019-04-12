@@ -117,4 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>20, 12</value>
+  </metadata>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Hvordan generere JSON fil. 
+- Fyll inn Overskrift i vinduet for "header"
+- Skriv inn filnavnet (med extention .png/jpg/gif) til Bildefilen du vil inkludere.
+- Velg hvilken side bildet skal vises på. 
+- Fyll inn filnavn til JSON fil.
+- Fyll inn ønsket text i input feltet.
+- Trykk på upload etterfulgt av "Skriv til Fil"
+</value>
+  </data>
 </root>

@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 // This is the code for your desktop app.
@@ -23,24 +18,45 @@ namespace JSON_loader
             InitializeComponent();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            // Click on the link below to continue learning how to build a desktop app using WinForms!
-            System.Diagnostics.Process.Start("http://aka.ms/dotnet-get-started-desktop");
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Thanks!");
-        }
-
-        private void helloWorldLabel_Click(object sender, EventArgs e)
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
 
         }
 
-        private void debugInstructionsLabel_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            /*WRITE TO FILE*/
+            if (File.Exists(_filename))
+            {
+                using (var file =
+                    File.AppendText(_filename))
+                {
+                    file.Write("TEST");
+                }
+            }
+            else
+            {
+                using (var file =
+                    File.CreateText(_filename))
+                {
+                    file.WriteLine("TEST");
+                }
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //_filename = sender.ToString();
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            //_filename = sender.ToString();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
