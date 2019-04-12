@@ -5,6 +5,7 @@ var blogModeElement;
 var rosterModeElement;
 var matchResultModeElement;
 var resultsTable;
+var rosterTable;
 
 function scrollSticky() {
   if (window.pageYOffset >= sticky) {
@@ -15,17 +16,16 @@ function scrollSticky() {
 }
 
 function init() {
-    window.onscroll = function() {scrollSticky()};
-
-    navbar = document.getElementById('navbar');
-    sticky = navbar.offsetTop;
-    loadBlogJSON();
-    matchResultModeElement = document.getElementById('matchResults');
-    rosterModeElement = document.getElementById('playerRoster');
-    blogModeElement = document.getElementById('blogContainer');
-    resultsTable = document.getElementById('resultsTable');
-
-
+  window.onscroll = function() {scrollSticky()};
+  navbar = document.getElementById('navbar');
+  sticky = navbar.offsetTop;
+  matchResultModeElement = document.getElementById('matchResults');
+  rosterModeElement = document.getElementById('playerRoster');
+  blogModeElement = document.getElementById('blogContainer');
+  resultsTable = document.getElementById('resultsTable');
+  rosterTable = document.getElementById('rosterTable');
+  loadBlogJSON();
+  loadMatchResults();
 }
 
 function loadBlogJSON() {
@@ -41,7 +41,6 @@ function loadBlogJSON() {
 xmlhttp.open("GET", "blog.json", true);
 xmlhttp.send();
 }
-
 
 function insertBlogElement(data) {
     let element = document.createElement("div");
@@ -94,18 +93,21 @@ function loadMatchResults() {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-      blogData = JSON.parse(this.responseText);
-      for (element of blogData.blog) {
-          insertMatchResult(element);
-      }
+      matchData = JSON.parse(this.responseText);
+      buildMatchTable(matchData.results);
+
   }
 };
 xmlhttp.open("GET", "results.json", true);
 xmlhttp.send();
 }
 
-function insertMatchResult(result) {
-
+function buildMatchTable(results) {
+  var tableContent = '<tr><th>Dato</th><th>Hjemme</th><th>Resultat</th><th>Borte</th></tr>';
+  for (result of results) {
+    tableContent += '<tr><td>' + result.date + '</td><td>' + result.home + '</td><td>' + result.homeResult + '\t-\t' + result.awayResult + '</td> <td>' + result.away + '</td></tr>';
+  }
+  resultsTable.innerHTML = tableContent;
 }
 
 function rosterMode() {

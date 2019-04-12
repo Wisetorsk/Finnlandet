@@ -1,0 +1,18 @@
+{
+    "results": [
+        {
+            "date":"12/12/2018",
+            "home":"team1",
+            "away":"team2",
+            "homeResult":"3",
+            "awayResult":"1"
+        },
+        {
+            "date":"12/01/2019",
+            "home":"team1",
+            "away":"team2",
+            "homeResult":"0",
+            "awayResult":"1"
+        }
+    ]
+}
