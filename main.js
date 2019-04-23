@@ -4,8 +4,10 @@ var blogData;
 var blogModeElement;
 var rosterModeElement;
 var matchResultModeElement;
+var newsModeElement;
 var resultsTable;
 var rosterTable;
+var db = firebase.firestore();
 
 function scrollSticky() {
   if (window.pageYOffset >= sticky) {
@@ -20,12 +22,13 @@ function init() {
   navbar = document.getElementById('navbar');
   sticky = navbar.offsetTop;
   matchResultModeElement = document.getElementById('matchResults');
+  newsModeElement = document.getElementById('newsWindow');
   rosterModeElement = document.getElementById('playerRoster');
   blogModeElement = document.getElementById('blogContainer');
   resultsTable = document.getElementById('resultsTable');
   rosterTable = document.getElementById('rosterTable');
-  loadBlogJSON();
-  loadMatchResults();
+  //loadBlogJSON();
+  //loadMatchResults();
 }
 
 function loadBlogJSON() {
@@ -40,6 +43,14 @@ function loadBlogJSON() {
 };
 xmlhttp.open("GET", "blog.json", true);
 xmlhttp.send();
+}
+
+function insertTable(data) {
+
+}
+
+function insertTables(dataSet) {
+
 }
 
 function insertBlogElement(data) {
@@ -114,17 +125,26 @@ function rosterMode() {
   matchResultModeElement.classList.add("hidden");
   blogModeElement.classList.add("hidden");
   rosterModeElement.classList.remove("hidden");
-  
+  newsModeElement.classList.add("hidden");
 }
 
 function matchResultMode() {
   matchResultModeElement.classList.remove("hidden");
   blogModeElement.classList.add("hidden");
   rosterModeElement.classList.add("hidden");
+  newsModeElement.classList.add("hidden");
 }
 
 function blogMode() {
   matchResultModeElement.classList.add("hidden");
   blogModeElement.classList.remove("hidden");
   rosterModeElement.classList.add("hidden");
+  newsModeElement.classList.add("hidden");
+}
+
+function newsMode() {
+  newsModeElement.classList.remove("hidden");
+  blogModeElement.classList.add("hidden");
+  rosterModeElement.classList.add("hidden");
+  matchResultModeElement.classList.add("hidden");
 }

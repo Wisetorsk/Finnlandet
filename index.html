@@ -7,6 +7,21 @@
     <link rel="shortcut icon" href="resource/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCWzcaDjljutCjf0Ww6WcoDIEDnb3VNUqk",
+        authDomain: "fantasyinnlandet-39937.firebaseapp.com",
+        databaseURL: "https://fantasyinnlandet-39937.firebaseio.com",
+        projectId: "fantasyinnlandet-39937",
+        storageBucket: "",
+        messagingSenderId: "506940425310"
+    };
+    firebase.initializeApp(config);
+    </script>
     
     <script src="main.js"></script>
 </head>
@@ -25,14 +40,35 @@
                     <div class="table">
                         <ul id="horizontal-list">
                         <li><a href="https://www.breddefantasy.com/"><img class="navbarImg" src="resource/bredde.png"></a></li>
-                        <li><a href="#" onclick="blogMode()">Blog</a></li>
-                        <li><a href="#" onclick="matchResultMode()">FotballTabeller</a></li>
-                        <li><a href="#" onclick="rosterMode()">SpillerStatistikk</a></li>
+                        <li><a href="#" onclick="blogMode()">Hjem</a></li>
+                        <li><a href="#" onclick="newsMode()">Nyheter</a></a></li>
+                        <li><a href="#" onclick="matchResultMode()">Statistikker</a></li>
+                        <li><div class="dropdown">
+                            <button class="dropbtn">Tabeller</button>
+                            <div class="dropdown-content">
+                              <a href="#">Avdeling 1</a>
+                              <a href="#">Avdeling 2</a>
+                            </div>
+                          </div></li>
                         </ul>
                     </div>
                 </div>
                 <div id="blogContainer" class="blogContainer wrapper">
                     
+                    <div class="tables wrapper" id="tablesContainer">
+                        <!-- <div id="table1"></div>
+                        <div id="table2"></div> -->
+                    </div>
+
+                    <div class="newsHeaders wrapper">
+                        <div id="newsElement1"></div>
+                        <div id="newsElement2"></div>
+                        <div id="newsElement3"></div>
+                    </div>
+
+                </div>
+
+                <div id="newsWindow" class="news hidden wrapper">
 
                 </div>
 
