@@ -7,18 +7,19 @@ var matchResultModeElement;
 var newsModeElement;
 var resultsTable;
 var rosterTable;
+var key;
+var db;
 
-
+readTextFile("key.txt");
 var config = {
-    apiKey: readTextFile("key.txt"),
+    apiKey: key,
     authDomain: "fantasyinnlandet-39937.firebaseapp.com",
     databaseURL: "https://fantasyinnlandet-39937.firebaseio.com",
     projectId: "fantasyinnlandet-39937",
     storageBucket: "",
     messagingSenderId: "506940425310"
 };
-firebase.initializeApp(config);
-var db = firebase.firestore();
+
 
 function scrollSticky() {
   if (window.pageYOffset >= sticky) {
@@ -28,7 +29,16 @@ function scrollSticky() {
   }
 }
 
+function testDB() {
+  db.collection("tabeller").doc("avdeling1").get().then((querySnapshot) => {
+    console.log(querySnapshot);
+  });
+}
+
+
 function init() {
+  firebase.initializeApp(config);
+  db = firebase.firestore();
   window.onscroll = function() {scrollSticky()};
   navbar = document.getElementById('navbar');
   sticky = navbar.offsetTop;
@@ -40,6 +50,7 @@ function init() {
   rosterTable = document.getElementById('rosterTable');
   //loadBlogJSON();
   //loadMatchResults();
+  testDB();
 }
 
 function readTextFile(file)
@@ -53,7 +64,8 @@ function readTextFile(file)
             if(rawFile.status === 200 || rawFile.status == 0)
             {
                 var allText = rawFile.responseText;
-                return allText;
+                key = allText.trim();
+
             }
         }
     }
