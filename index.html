@@ -31,15 +31,15 @@
                 <div id="navbar">
                     <div class="table">
                         <ul id="horizontal-list">
-                        <li><a href="https://www.breddefantasy.com/"><img class="navbarImg" src="resource/bredde.png"></a></li>
-                        <li><a href="#" onclick="blogMode()">Hjem</a></li>
-                        <li><a href="#" onclick="newsMode()">Nyheter</a></a></li>
-                        <li><a href="#" onclick="matchResultMode()">Statistikker</a></li>
+                        <li><a href="https://www.breddefantasy.com/" target="_blank"><img class="navbarImg" src="resource/bredde.png"></a></li>
+                        <li><a href="#home" onclick="blogMode()">Hjem</a></li>
+                        <li><a href="#news" onclick="newsMode()">Nyheter</a></a></li>
+                        <li><a href="#stats" onclick="matchResultMode()">Statistikker</a></li>
                         <li><div class="dropdown">
                             <button class="dropbtn">Tabeller</button>
                             <div class="dropdown-content">
-                              <a href="#">Avdeling 1</a>
-                              <a href="#">Avdeling 2</a>
+                              <a href="#avd1">Avdeling 1</a>
+                              <a href="#avd2">Avdeling 2</a>
                             </div>
                           </div></li>
                         </ul>
@@ -239,10 +239,63 @@
 
                 </div>
 
-                <div id="matchResults" class="results hidden">
-                    <table id="resultsTable">
-
-                    </table>
+                <div id="matchResults" class="statistics hidden wrapper">
+                    <div id="pointsList" class="topTen">Poengkongen
+                        <ul>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                        </ul>
+                    </div>
+                    <div id="topScorer" class="topTen">Toppscorer
+                        <ul>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                        </ul>
+                    </div>
+                    <div id="goalGivers" class="topTen">Målgivende
+                        <ul>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                        </ul>
+                    </div>
+                    <div id="raatassen" class="topTen">Råtassen
+                        <ul>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                            <li>Navn Navnesen</li>
+                        </ul>
+                    </div>
                 </div>
     
                 <div id="playerRoster" class="roster hidden">
@@ -251,6 +304,13 @@
                     </table>
                 </div>
                 
+                <div id="fullTable1" class="fullTable hidden wrapper">
+
+                </div>
+                <div id="fullTable2" class="fullTable hidden wrapper">
+
+                </div>
+
                 <div id="twitterWindow" class="embed twitter">
                         <a class="twitter-timeline" data-width="15vw" data-height="75vh" href="https://twitter.com/FInnlandet?ref_src=twsrc%5Etfw">Tweets by FInnlandet</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>

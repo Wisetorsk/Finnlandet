@@ -14,6 +14,17 @@ body {
 
 }
 
+.statistics {
+    width: 75vw;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.topTen {
+    border: 2px dashed black;
+    height: 300px;
+    margin: 20px;
+}
+
 .sticky {
     position: fixed;
     top: 0;
