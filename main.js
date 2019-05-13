@@ -9,6 +9,7 @@ var resultsTable;
 var rosterTable;
 var key;
 var db;
+var data = { tabeller: {avdeling1: {}, avdeling2: {}}, articles: [] };
 
 readTextFile("key.txt");
 var config = {
@@ -20,7 +21,6 @@ var config = {
     messagingSenderId: "506940425310"
 };
 
-
 function scrollSticky() {
   if (window.pageYOffset >= sticky) {
     navbar.classList.add("sticky");
@@ -29,9 +29,36 @@ function scrollSticky() {
   }
 }
 
-function testDB() {
-  db.collection("tabeller").doc("avdeling1").get().then((querySnapshot) => {
-    console.log(querySnapshot);
+function loadDB() {
+  readTable("avdeling1", data.tabeller.avdeling1);
+  readTable("avdeling2", data.tabeller.avdeling2);
+  readArticles();
+  /*db.collection("tabeller").doc("avdeling1").get().then((questionSnapshot) => {
+    for (var key in questionSnapshot.data()) {
+      data.tabeller.avdeling1[key] = questionSnapshot.data()[key];
+    }
+  });*/
+
+}
+
+function readArticles() {
+  db.collection("articles").get().then(function(doc) {
+    doc.forEach(function(element) {
+      data.articles.push({
+        content: element.data()["content"],
+        heading: element.data()["heading"],
+        main_img: element.data()["main_img"],
+        preview_img: element.data()["preview_img"]
+      })
+   })
+  })
+}
+
+function readTable(division, dataTable) {
+  db.collection("tabeller").doc(division).get().then((questionSnapshot) => {
+    for (var key in questionSnapshot.data()) {
+      dataTable[key] = questionSnapshot.data()[key];
+    }
   });
 }
 
@@ -40,7 +67,7 @@ function open_article(element) {
 }
 
 function add_data(collection, document, data) {
-
+  db.collection(collection).doc(document).set(data, {merge: true});
 }
 
 function add_article(article) {
@@ -53,16 +80,18 @@ function add_article(article) {
   textElement.setAttribute("class", "newsPreview");
   headerElement.setAttribute("class", "newsHeader");
   articleElement.setAttribute("class", "newsHolder wrapper");
-  articleElement.setAttribute("articleID", article.heading);
+  articleElement.setAttribute("articleID", article["heading"]);
   articleElement.setAttribute("onclick", "open_article(this)");
 
   imgElement.setAttribute("src", article.preview_img);
-  if (article.content.length > 250) {
-    preview = article.content.length.substr(0, 250);
+  imgElement.setAttribute("class", "newsPreviewImage");
+  if (article.content.length > 350) {
+    preview = article.content.substr(0, 350) + "...";
   } else {
-    preview = article.content;
+    preview = article.content + "...";
   }
-  textElement.appendChild(preview);
+  headerElement.appendChild(document.createTextNode(article["heading"]));
+  textElement.appendChild(document.createTextNode(preview));
   articleElement.appendChild(imgElement);
   articleElement.appendChild(headerElement);
   articleElement.appendChild(textElement);
@@ -70,7 +99,9 @@ function add_article(article) {
 }
 
 function load_articles() {
-  db.
+  for (articleObj of data.articles) {
+    add_article(articleObj);
+  }
 }
 
 function init() {
@@ -87,8 +118,11 @@ function init() {
   rosterTable = document.getElementById('rosterTable');
   //loadBlogJSON();
   //loadMatchResults();
-  testDB();
-  insertArticles();
+  loadDB();
+  console.log(data);
+  setTimeout(function() {load_articles()}, 1000);
+  //add_article(data.articles[0]);
+  //insertArticles();
 }
 
 function readTextFile(file)
@@ -110,19 +144,6 @@ function readTextFile(file)
     rawFile.send(null);
 }
 
-function loadBlogJSON() {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        blogData = JSON.parse(this.responseText);
-        for (element of blogData.blog) {
-            insertBlogElement(element);
-        }
-    }
-};
-xmlhttp.open("GET", "blog.json", true);
-xmlhttp.send();
-}
 
 function insertTable(data) {
 
@@ -130,66 +151,6 @@ function insertTable(data) {
 
 function insertTables(dataSet) {
 
-}
-
-function insertBlogElement(data) {
-    let element = document.createElement("div");
-    let textBox = document.createElement("div");
-    let image = document.createElement("img");
-    let textContent = document.createTextNode(data.text);
-    let parent = document.getElementById('blogContainer');
-    let hRule = document.createElement("hr");
-    let heading = document.createElement("h3");
-    let headerText = document.createTextNode(data.header);
-    let figure = document.createElement("figure");
-    let imgCaptionText = document.createTextNode(data.caption);
-    let caption = document.createElement("figcaption");
-    let offsetVertical = parseInt(data.imgH) + 20;
-    let offsetHorizontal = parseInt(data.imgW);
-    heading.appendChild(headerText);
-    heading.classList.add("blogHeader");
-
-    image.src = data.img;
-    image.align = data.align;
-    element.id = data.id;
-    image.width = data.imgW;
-    image.height = data.imgH;
-    element.classList.add('blogElement');
-    textBox.classList.add('blogText');
-    figure.classList.add(data.align);
-
-    caption.style.position = "relative";
-    caption.style.top = offsetVertical + "px";
-    caption.style.fontSize = "12px";
-
-    if(data.align == "left") {
-      caption.style.right = offsetHorizontal + "px";
-    } else {
-      caption.style.left = "50vw";
-    }
-
-    caption.appendChild(imgCaptionText);
-    figure.appendChild(image);
-    figure.appendChild(caption);
-    textBox.appendChild(textContent);
-    element.appendChild(heading);
-    element.appendChild(figure);
-    element.appendChild(textBox);
-    element.appendChild(hRule);
-    parent.appendChild(element);
-}
-
-function loadMatchResults() {
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-      matchData = JSON.parse(this.responseText);
-      buildMatchTable(matchData.results);
-
-  }
-};
-xmlhttp.open("GET", "results.json", true);
-xmlhttp.send();
 }
 
 function buildMatchTable(results) {

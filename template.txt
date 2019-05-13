@@ -1,0 +1,25 @@
+{
+    Brummunddal: {
+        borte: {
+            mål: "",
+            t: "",
+            v: "",
+            u: ""
+        },
+        hjemme: {
+            mål: "",
+            t: "",
+            v: "",
+            u: ""
+        },
+        total: {
+            mål: "",
+            t: "",
+            v: "",
+            u: ""
+        },
+        kamper: "",
+        plass: "",
+        poeng: "" 
+    }
+}
