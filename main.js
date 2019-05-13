@@ -35,6 +35,43 @@ function testDB() {
   });
 }
 
+function open_article(element) {
+
+}
+
+function add_data(collection, document, data) {
+
+}
+
+function add_article(article) {
+  let articleElement = document.createElement("div");
+  let headerElement = document.createElement("div");
+  let textElement = document.createElement("div");//PREVIEW!!!!!!
+  let imgElement = document.createElement("img");
+
+  let preview = "";
+  textElement.setAttribute("class", "newsPreview");
+  headerElement.setAttribute("class", "newsHeader");
+  articleElement.setAttribute("class", "newsHolder wrapper");
+  articleElement.setAttribute("articleID", article.heading);
+  articleElement.setAttribute("onclick", "open_article(this)");
+
+  imgElement.setAttribute("src", article.preview_img);
+  if (article.content.length > 250) {
+    preview = article.content.length.substr(0, 250);
+  } else {
+    preview = article.content;
+  }
+  textElement.appendChild(preview);
+  articleElement.appendChild(imgElement);
+  articleElement.appendChild(headerElement);
+  articleElement.appendChild(textElement);
+  newsModeElement.appendChild(articleElement);
+}
+
+function load_articles() {
+  db.
+}
 
 function init() {
   firebase.initializeApp(config);
@@ -51,6 +88,7 @@ function init() {
   //loadBlogJSON();
   //loadMatchResults();
   testDB();
+  insertArticles();
 }
 
 function readTextFile(file)
