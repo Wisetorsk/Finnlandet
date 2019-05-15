@@ -53,6 +53,55 @@ ul#horizontal-list {
         padding-right: 5vw;
 	}
 
+@keyframes closeModal {
+    from {
+        height: 100%;
+        width: 100%;
+    }
+    to {
+        height: 0%;
+        width: 100%;
+    }
+}
+
+.modal {
+    background-color: rgb(63,71,209);
+    position: absolute;
+    z-index: +2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalHeader {
+    text-align: center;
+}
+
+.divisionHead {
+    width: 100%;
+    text-align: center;
+}
+
+.openModal {
+    width: 100%;
+    height: 100%;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
+.closeModal {
+    animation-name: closeModal;
+    animation-duration: 1s;
+}
+
+.noscroll {
+
+}
 
 .results {
 
@@ -143,6 +192,9 @@ tr:nth-child(10) {
     grid-template-columns: 45% 45%;
 }
 
+.tablesFull {
+    width: 75%;
+}
 
 .newsHeaders {
     grid-template-columns: 33% 33% 33%;

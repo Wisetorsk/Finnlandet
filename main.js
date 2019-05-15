@@ -5,11 +5,13 @@ var blogModeElement;
 var rosterModeElement;
 var matchResultModeElement;
 var newsModeElement;
+var tableModeElement;
 var resultsTable;
 var rosterTable;
 var key;
 var db;
-var data = { tabeller: {avdeling1: {}, avdeling2: {}}, articles: [] };
+var mode;
+var data = { tabeller: {avdeling1: {}, avdeling2: {}}, articles: [], stats: {}};
 
 readTextFile("key.txt");
 var config = {
@@ -20,6 +22,15 @@ var config = {
     storageBucket: "",
     messagingSenderId: "506940425310"
 };
+
+function closeModal() {
+  document.getElementById('loadingModal').classList.remove("openModal");
+  document.getElementById('loadingModal').classList.add("closeModal");
+  setTimeout(function() {
+    document.getElementById('loadingModal').classList.add("hidden");
+  }, 1000);
+  
+}
 
 function scrollSticky() {
   if (window.pageYOffset >= sticky) {
@@ -33,12 +44,36 @@ function loadDB() {
   readTable("avdeling1", data.tabeller.avdeling1);
   readTable("avdeling2", data.tabeller.avdeling2);
   readArticles();
-  /*db.collection("tabeller").doc("avdeling1").get().then((questionSnapshot) => {
-    for (var key in questionSnapshot.data()) {
-      data.tabeller.avdeling1[key] = questionSnapshot.data()[key];
-    }
-  });*/
+  readStats();
+}
 
+function generatePreviews() {
+  news = [
+    document.getElementById('newsElement1'), 
+    document.getElementById('newsElement2'),
+    document.getElementById('newsElement3')
+  ];
+  var j = 0;
+  for (var article in data.articles) {
+    insertPreview(data.articles[article], news[article]);
+  }
+}
+
+function insertPreview(article, parent) {
+  var heading = article.heading;
+  var preview_img = article.preview_img;
+  var preview_text = article.content.substr(0, 200) + '... Les mer';
+  appendElement('div', parent, heading, "newsElementHeader");
+  appendElement('img', parent, null, null, preview_img);
+  appendElement('div', parent, preview_text, 'newsTextPreview');
+}
+
+function readStats() {
+  db.collection("statistikker").get().then(function(doc) {
+    doc.forEach(function(element) {
+      data.stats[element.id] = element.data();
+    });
+  });
 }
 
 function readArticles() {
@@ -54,6 +89,50 @@ function readArticles() {
   })
 }
 
+function appendElement(type, parent, content=null, rules=null, src=null) {
+  if (typeof(parent) != "object") {
+    throw "Parent element " + parent + " is not Object!";
+  }
+  var element = document.createElement(type);
+  if (content != null) {
+    var text = document.createTextNode(content);
+    element.appendChild(text);
+  }
+  if (rules != null) {
+    element.setAttribute('class', rules)
+  }
+  if (src != null) {
+    element.setAttribute('src', src);
+  }
+  parent.appendChild(element);
+  //return parent;
+}
+
+function makeTable(data, headers = ["one", "two", "three"]) {
+  var table = document.createElement('table');
+  for (var h in headers) {
+    table.appendElement('th', table)
+  }
+}
+
+function insertTablesMainpage() {
+  var parent1 = document.getElementById('table1');
+  var parent2 = document.getElementById('table2');
+  insertMiniTable(data.tabeller.avdeling1, parent1);
+  insertMiniTable(data.tabeller.avdeling2, parent2);
+}
+
+function insertMiniTable(data, parent) {
+  for (let team in data) {
+    var row = document.createElement('tr');
+    appendElement('td', row, data[team].plass);
+    appendElement('td', row, team);
+    appendElement('td', row, data[team].total.mål);
+    appendElement('td', row, data[team].poeng);
+    parent.appendChild(row);
+  }
+}
+
 function readTable(division, dataTable) {
   db.collection("tabeller").doc(division).get().then((questionSnapshot) => {
     for (var key in questionSnapshot.data()) {
@@ -63,7 +142,17 @@ function readTable(division, dataTable) {
 }
 
 function open_article(element) {
+  var wanted_article = element.getAttribute("articleid");
+  for (var article in data.articles) {
+    if (article.heading == wanted_article) {
+      display_article(article);
+      break;
+    }
+  }
+}
 
+function diaplay_article(article) {
+  // Store and hide previous mode. 
 }
 
 function add_data(collection, document, data) {
@@ -116,13 +205,29 @@ function init() {
   blogModeElement = document.getElementById('blogContainer');
   resultsTable = document.getElementById('resultsTable');
   rosterTable = document.getElementById('rosterTable');
-  //loadBlogJSON();
-  //loadMatchResults();
+  tableModeElement = document.getElementById('tables');
   loadDB();
-  console.log(data);
-  setTimeout(function() {load_articles()}, 1000);
-  //add_article(data.articles[0]);
-  //insertArticles();
+  setTimeout(function() {
+    load_articles();
+    insertTables(data.tabeller);
+    insertTopResults();
+    insertTablesMainpage();
+    generatePreviews();
+    closeModal();
+  }, 1000);
+}
+
+function insertTopResults() {
+  insertResults(document.getElementById('pointsList'), data.stats.Målgivende);
+  insertResults(document.getElementById('raatassen'), data.stats.Råtassen);
+  insertResults(document.getElementById('topScorer'), data.stats.Toppscorer);
+  insertResults(document.getElementById('pointsList'), data.stats.poengkongen);
+}
+
+function insertResults(parent, data) {
+  for (var element in data) {
+    parent.innerHTML += data[element];
+  }
 }
 
 function readTextFile(file)
@@ -144,47 +249,133 @@ function readTextFile(file)
     rawFile.send(null);
 }
 
+function addTableHeader(text, parent, classRule) {
+  var header = document.createElement('th');
+  var txt = document.createTextNode(text);
+  header.appendChild(txt);
+  parent.appendChild(header);
+  header.setAttribute('class', classRule)
+  return parent;
+}
 
-function insertTable(data) {
+function addTableData(text, parent, classRule) {
+  var header = document.createElement('td');
+  var txt = document.createTextNode(text);
+  header.appendChild(txt);
+  parent.appendChild(header);
+  header.setAttribute('class', classRule)
+  return parent;
+}
 
+function insertMoreRow(parent) {
+  parent = addTableHeader('V', parent, 'narrow');
+  parent = addTableHeader('U', parent, 'narrow');
+  parent = addTableHeader('T', parent, 'narrow');
+  parent = addTableHeader('Mål', parent, 'narrow');
+  return parent;
+}
+
+function insertTable(data, location) {
+  var generated_table = document.createElement('table');
+  var topRow = document.createElement('tr');
+  topRow = addTableHeader('Plass', topRow, 'wide');
+  topRow = addTableHeader('Lag', topRow, 'wide');
+  topRow = addTableHeader('Kamper', topRow, 'wide');
+  topRow = insertMoreRow(topRow);
+  topRow = insertMoreRow(topRow);
+  topRow = insertMoreRow(topRow);
+  topRow = addTableHeader('Diff', topRow, 'narrow');
+  topRow = addTableHeader('Poeng', topRow, 'wide');
+
+  generated_table.appendChild(topRow);
+
+  for (var row in data) {
+    var insertRow = document.createElement('tr');
+    var teamname = row;
+    var results = data[teamname];
+    insertRow = addTableData(results.plass, insertRow, 'data');
+    insertRow = addTableData(teamname, insertRow, 'data');
+    insertRow = addTableData(results.kamper, insertRow, 'data');
+
+    insertRow = addTableData(results.hjemme.v, insertRow, 'data');
+    insertRow = addTableData(results.hjemme.u, insertRow, 'data');
+    insertRow = addTableData(results.hjemme.t, insertRow, 'data');
+    insertRow = addTableData(results.hjemme.mål, insertRow, 'data');
+
+    insertRow = addTableData(results.borte.v, insertRow, 'data');
+    insertRow = addTableData(results.borte.u, insertRow, 'data');
+    insertRow = addTableData(results.borte.t, insertRow, 'data');
+    insertRow = addTableData(results.borte.mål, insertRow, 'data');
+
+
+    insertRow = addTableData(results.total.v, insertRow, 'data');
+    insertRow = addTableData(results.total.u, insertRow, 'data');
+    insertRow = addTableData(results.total.t, insertRow, 'data');
+    insertRow = addTableData(results.total.mål, insertRow, 'data');
+    insertRow = addTableData(results.total.diff, insertRow, 'data'); //diff!
+
+    insertRow = addTableData(results.poeng, insertRow, 'data');
+
+    generated_table.appendChild(insertRow);
+  }
+
+  document.getElementById(location).appendChild(generated_table);
 }
 
 function insertTables(dataSet) {
-
-}
-
-function buildMatchTable(results) {
-  var tableContent = '<tr><th>Dato</th><th>Hjemme</th><th>Resultat</th><th>Borte</th></tr>';
-  for (result of results) {
-    tableContent += '<tr><td>' + result.date + '</td><td>' + result.home + '</td><td>' + result.homeResult + '\t-\t' + result.awayResult + '</td> <td>' + result.away + '</td></tr>';
+  for (var table in dataSet) {
+    insertTable(dataSet[table], table);
   }
-  resultsTable.innerHTML = tableContent;
 }
 
 function rosterMode() {
+  mode = 'roster';
   matchResultModeElement.classList.add("hidden");
   blogModeElement.classList.add("hidden");
   rosterModeElement.classList.remove("hidden");
   newsModeElement.classList.add("hidden");
+  tableModeElement.classList.add("hidden");
 }
 
 function matchResultMode() {
+  mode = 'result';
   matchResultModeElement.classList.remove("hidden");
   blogModeElement.classList.add("hidden");
   rosterModeElement.classList.add("hidden");
   newsModeElement.classList.add("hidden");
+  tableModeElement.classList.add("hidden");
 }
 
 function blogMode() {
+  mode = 'blog';
   matchResultModeElement.classList.add("hidden");
   blogModeElement.classList.remove("hidden");
   rosterModeElement.classList.add("hidden");
   newsModeElement.classList.add("hidden");
+  tableModeElement.classList.add("hidden");
 }
 
 function newsMode() {
+  mode = 'news';
   newsModeElement.classList.remove("hidden");
   blogModeElement.classList.add("hidden");
   rosterModeElement.classList.add("hidden");
   matchResultModeElement.classList.add("hidden");
+  tableModeElement.classList.add("hidden");
+}
+
+function tableMode(resultTable) {
+  mode = 'tables';
+  matchResultModeElement.classList.add("hidden");
+  blogModeElement.classList.add("hidden");
+  rosterModeElement.classList.add("hidden");
+  newsModeElement.classList.add("hidden");
+  tableModeElement.classList.remove('hidden');
+  if (resultTable == 'one') {
+    document.getElementById('avdeling1').classList.remove('hidden');
+    document.getElementById('avdeling2').classList.add('hidden');
+  } else {
+    document.getElementById('avdeling2').classList.remove('hidden');
+    document.getElementById('avdeling1').classList.add('hidden');
+  }
 }

@@ -7,17 +7,18 @@
     <link rel="shortcut icon" href="resource/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+
+</head>
+<body onload="init()">
     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-
-    </script>
-    
     <script src="main.js"></script>
-</head>
-<body onload="init()">
+    
+    <div id="loadingModal" class="modal openModal">
+        <div class="heading modalHeader"><img src="resource/header.jpg"></div>
+    </div>
+
     <div class="webpage wrapper">
 
         <div class="mainPage wrapper">
@@ -38,8 +39,8 @@
                         <li><div class="dropdown">
                             <button class="dropbtn">Tabeller</button>
                             <div class="dropdown-content">
-                              <a href="#avd1">Avdeling 1</a>
-                              <a href="#avd2">Avdeling 2</a>
+                              <a href="#avd1" onclick="tableMode('one')">Avdeling 1</a>
+                              <a href="#avd2" onclick="tableMode('two')">Avdeling 2</a>
                             </div>
                           </div></li>
                         </ul>
@@ -48,187 +49,35 @@
                 <div id="blogContainer" class="blogContainer wrapper">
                     
                     <div class="tables wrapper" id="tablesContainer">
-                        <div id="table1" class="resultsTable"><span>AVDELING</span>
-                            <table>
+                        <div class="resultsTable"><span class="divisionHead">AVDELING 1</span>
+                            <table id="table1">
                                 <tr>
-                                    <th></th>
+                                    <th>Plassering</th>
                                     <th>Lag</th>
                                     <th>S</th>
                                     <th>P</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brummunddal 2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
                             </table>
                         </div>
-                        <div id="table2" class="resultsTable">AVDELING
-                                <table>
+                        <div class="resultsTable"><span class="divisionHead">AVDELING 2</span>
+                                <table id="table2">
                                         <tr>
-                                            <th></th>
+                                            <th>Plassering</th>
                                             <th>Lag</th>
                                             <th>S</th>
                                             <th>P</th>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>                                
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Brummunddal 2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
+                                        
                                     </table>
                         </div>
                     </div>
 
                     <div class="newsHeaders wrapper">
                         <div id="newsElement1" class="newsElement">
-                            <div class="newsElementHeader">TEST</div>
-                            <img src="resource/pootball.jpg">
-                            <div class="newsTextPreview">Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal </div>
                         </div>
                         <div id="newsElement2" class="newsElement">
-                            <div class="newsElementHeader">TEST</div>
-                            <img src="resource/futebal.jpg">
-                            <div class="newsTextPreview">Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal </div>
                         </div>
                         <div id="newsElement3" class="newsElement">
-                            <div class="newsElementHeader">TEST</div>
-                            <img src="resource/phootball.jpg">
-                            <div class="newsTextPreview">Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal Football Futebal </div>
 
                         </div>
                     </div>
@@ -240,61 +89,20 @@
                 </div>
 
                 <div id="matchResults" class="statistics hidden wrapper">
-                    <div id="pointsList" class="topTen">Poengkongen
-                        <ul>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                        </ul>
+                    <div id="pointsList" class="topTen"><h3>Poengkongen</h3>
+
                     </div>
-                    <div id="topScorer" class="topTen">Toppscorer
-                        <ul>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                        </ul>
+
+                    <div id="topScorer" class="topTen"><h3>Toppscorer</h3>
+
                     </div>
-                    <div id="goalGivers" class="topTen">Målgivende
-                        <ul>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                        </ul>
+
+                    <div id="goalGivers" class="topTen"><h3>Målgivende</h3>
+
                     </div>
-                    <div id="raatassen" class="topTen">Råtassen
-                        <ul>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                            <li>Navn Navnesen</li>
-                        </ul>
+
+                    <div id="raatassen" class="topTen"><h3>Råtassen</h3>
+
                     </div>
                 </div>
     
@@ -304,11 +112,13 @@
                     </table>
                 </div>
                 
-                <div id="fullTable1" class="fullTable hidden wrapper">
+            
+                <div id="tables" class="tablesFull wrapper hidden">
 
-                </div>
-                <div id="fullTable2" class="fullTable hidden wrapper">
-
+                    <div id="avdeling1" class="fullTable hidden wrapper">
+                    </div>
+                    <div id="avdeling2" class="fullTable hidden wrapper">
+                    </div>
                 </div>
 
                 <div id="twitterWindow" class="embed twitter">
