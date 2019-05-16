@@ -6,6 +6,7 @@ var rosterModeElement;
 var matchResultModeElement;
 var newsModeElement;
 var tableModeElement;
+var articleModeElement;
 var resultsTable;
 var rosterTable;
 var key;
@@ -143,7 +144,7 @@ function readTable(division, dataTable) {
 
 function open_article(element) {
   var wanted_article = element.getAttribute("articleid");
-  for (var article in data.articles) {
+  for (var article of data.articles) {
     if (article.heading == wanted_article) {
       display_article(article);
       break;
@@ -151,8 +152,13 @@ function open_article(element) {
   }
 }
 
-function diaplay_article(article) {
+function display_article(article) {
   // Store and hide previous mode. 
+  articleModeElement.innerHTML = "";
+  appendElement('img', articleModeElement, null, "mainImg", article.main_img);
+  appendElement('div', articleModeElement, article.heading, "articleHeading", null);
+  appendElement('div', articleModeElement, article.content, "articleText", null);
+  articleMode();
 }
 
 function add_data(collection, document, data) {
@@ -206,6 +212,7 @@ function init() {
   resultsTable = document.getElementById('resultsTable');
   rosterTable = document.getElementById('rosterTable');
   tableModeElement = document.getElementById('tables');
+  articleModeElement = document.getElementById('article');
   loadDB();
   setTimeout(function() {
     load_articles();
@@ -335,6 +342,7 @@ function rosterMode() {
   rosterModeElement.classList.remove("hidden");
   newsModeElement.classList.add("hidden");
   tableModeElement.classList.add("hidden");
+  articleModeElement.classList.add("hidden");
 }
 
 function matchResultMode() {
@@ -344,6 +352,7 @@ function matchResultMode() {
   rosterModeElement.classList.add("hidden");
   newsModeElement.classList.add("hidden");
   tableModeElement.classList.add("hidden");
+  articleModeElement.classList.add("hidden");
 }
 
 function blogMode() {
@@ -353,6 +362,7 @@ function blogMode() {
   rosterModeElement.classList.add("hidden");
   newsModeElement.classList.add("hidden");
   tableModeElement.classList.add("hidden");
+  articleModeElement.classList.add("hidden");
 }
 
 function newsMode() {
@@ -362,6 +372,7 @@ function newsMode() {
   rosterModeElement.classList.add("hidden");
   matchResultModeElement.classList.add("hidden");
   tableModeElement.classList.add("hidden");
+  articleModeElement.classList.add("hidden");
 }
 
 function tableMode(resultTable) {
@@ -371,6 +382,7 @@ function tableMode(resultTable) {
   rosterModeElement.classList.add("hidden");
   newsModeElement.classList.add("hidden");
   tableModeElement.classList.remove('hidden');
+  articleModeElement.classList.add("hidden");
   if (resultTable == 'one') {
     document.getElementById('avdeling1').classList.remove('hidden');
     document.getElementById('avdeling2').classList.add('hidden');
@@ -378,4 +390,14 @@ function tableMode(resultTable) {
     document.getElementById('avdeling2').classList.remove('hidden');
     document.getElementById('avdeling1').classList.add('hidden');
   }
+}
+
+function articleMode() {
+  mode = 'article';
+  newsModeElement.classList.add("hidden");
+  blogModeElement.classList.add("hidden");
+  rosterModeElement.classList.add("hidden");
+  matchResultModeElement.classList.add("hidden");
+  tableModeElement.classList.add("hidden");
+  articleModeElement.classList.remove("hidden");
 }
