@@ -66,11 +66,23 @@ ul#horizontal-list {
 
 .mainImg {
     float: right;
+    grid-area: img;
+}
+
+.articleHeading {
+    grid-area: header;
+    font-size: 200%;
+}
+
+.articleText {
+    grid-area: txt;
+    padding-top: 1%;
 }
 
 .article {
     width: 70%;
     padding: 2% 0 0 2%;
+    grid-template-areas: "img header" "img header" "txt txt";
 }
 
 .modal {

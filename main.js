@@ -220,6 +220,7 @@ function init() {
     insertTopResults();
     insertTablesMainpage();
     generatePreviews();
+    sortTeams();
     closeModal();
   }, 1000);
 }
@@ -282,8 +283,9 @@ function insertMoreRow(parent) {
   return parent;
 }
 
-function insertTable(data, location) {
+function insertTable(data, location, id) {
   var generated_table = document.createElement('table');
+  generated_table.id = id + "Table"
   var topRow = document.createElement('tr');
   topRow = addTableHeader('Plass', topRow, 'wide');
   topRow = addTableHeader('Lag', topRow, 'wide');
@@ -331,7 +333,7 @@ function insertTable(data, location) {
 
 function insertTables(dataSet) {
   for (var table in dataSet) {
-    insertTable(dataSet[table], table);
+    insertTable(dataSet[table], table, table);
   }
 }
 
@@ -400,4 +402,34 @@ function articleMode() {
   matchResultModeElement.classList.add("hidden");
   tableModeElement.classList.add("hidden");
   articleModeElement.classList.remove("hidden");
+}
+
+function sortTeams() {
+  sortTable("table1");
+  sortTable("table2");
+  sortTable("avdeling1Table");
+  sortTable("avdeling2Table");
+}
+
+function sortTable(tableID) {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById(tableID);
+  switching = true;
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
 }
